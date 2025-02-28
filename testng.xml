@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <listeners>
+        <listener class-name="TestComponents.Listenners"/>
+    </listeners>
+    <test verbose="2" preserve-order="true" name="Login Test">
+        <classes>
+            <class name="LoginTest"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="User Registration">
+        <classes>
+            <class name="RegisterUserFrmwrk"/>
+            <class name="ExistingUserReg"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Contact Us Form">
+        <classes>
+            <class name="FillContactUsForm"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Search Product">
+        <classes>
+            <class name="SearchProduct"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Subscription">
+        <classes>
+            <class name="Subscription"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Cart Page Tests">
+        <classes>
+            <class name="CartPageTests"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Verify Pages">
+        <classes>
+            <class name="VerifyProductAndDetailPages"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Purchase">
+        <classes>
+            <class name="PlaceOrder"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="View brand and category pages">
+        <classes>
+            <class name="ViewCategoryAndBrands"/>
+        </classes>
+    </test>
+
+
+</suite>

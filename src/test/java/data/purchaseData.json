@@ -1,0 +1,28 @@
+[
+  {
+    "products":"Stylish Dress",
+    "name": "Minosha",
+    "email": "mds@gmail.com",
+    "title": "Mrs",
+    "password": "mds@123",
+    "date": "12",
+    "month": "October",
+    "year": "1998",
+    "firstName": "Minosha",
+    "lastName": "De Silva",
+    "company": "LSEG",
+    "address1": "No:34",
+    "address2": "Seattle",
+    "country": "United States",
+    "state": "Washington",
+    "city": "Seattle",
+    "zipcode": "209",
+    "mobile": "1345678",
+    "message": "This is my first order",
+    "name_on_card": "Minosha Warnasuriya",
+    "card_no": "000000202020",
+    "cvc": "121",
+    "expire_month": "08",
+    "expiry_year": "2026"
+  }
+]
