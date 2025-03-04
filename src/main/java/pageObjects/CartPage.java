@@ -48,15 +48,23 @@ public class CartPage extends AbstractComponent {
 
     public boolean verifyCartProdNames(List<String> addedProds) {
         boolean flag = false;
-        for (int k = 0; k < addedProds.size(); k++) {
-            int finalK = k;
-            if (cartPageProdNames.stream().anyMatch(e -> e.getText().equalsIgnoreCase(addedProds.get(finalK)))) {
-                flag = true;
-            } else {
-                flag = false;
+
+        for(String addedProd:addedProds)
+        {
+            for(WebElement cartProd:cartPageProdNames)
+            {
+                if(cartProd.getText().equalsIgnoreCase(addedProd))
+                {
+                    flag=true;
+                }
+                else{
+                    flag=false;
+                }
             }
         }
         return flag;
+
+
     }
 
     public boolean verifyPrice(List<String> priceList) {
@@ -140,6 +148,7 @@ public class CartPage extends AbstractComponent {
         }
         return flag;
     }
+
 }
 
 

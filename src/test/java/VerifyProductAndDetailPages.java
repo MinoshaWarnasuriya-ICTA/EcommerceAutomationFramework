@@ -21,13 +21,13 @@ public class VerifyProductAndDetailPages extends BaseTest {
     @Test
     public void verifyAllProdsAndProdDetails() {
         //Go to products page
-        Products product = homePage.goToAllProducts();
+        Products products = homePage.goToAllProducts();
         //Verify user is navigated to ALL PRODUCTS page successfully
-        Assert.assertTrue(product.getAllProductsText().isDisplayed());
+        Assert.assertEquals(products.getAllProductsText(),"All Products".toUpperCase());
         //The products list is visible
-        Assert.assertFalse(product.getProdList().isEmpty());
+        Assert.assertFalse(products.getProdList().isEmpty());
         //Click on 'View Product' of first product
-        ProductsDetail prodDetail = product.viewFirstProd();
+        ProductsDetail prodDetail = products.viewFirstProd();
         //User is landed to product detail page
         String expectedURL="https://automationexercise.com/product_details/1";
         Assert.assertEquals(driver.getCurrentUrl(),expectedURL);

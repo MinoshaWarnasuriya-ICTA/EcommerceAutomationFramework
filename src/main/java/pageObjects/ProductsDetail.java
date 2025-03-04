@@ -39,6 +39,24 @@ public class ProductsDetail extends AbstractComponent {
     @FindBy(css = ".btn-success")
     WebElement continueShoppingBtn;
 
+    @FindBy(css = ".nav-tabs li a")
+    WebElement writeReviewTitle;
+
+    @FindBy(css = "#name")
+    WebElement reviewNameBox;
+
+    @FindBy(css = "#email")
+    WebElement reviewEmailBox;
+
+    @FindBy(xpath = "//*[@id='review']")
+    WebElement reviewInputBox;
+
+    @FindBy(id = "button-review")
+    WebElement reviewSubmitBtn;
+
+    @FindBy(css = "[class*='alert-success'] span")
+    WebElement successAlertMsge;
+
     public void setQuantity(String quantity) {
         quantityInputBox.clear();
         quantityInputBox.sendKeys(quantity);
@@ -73,5 +91,23 @@ public class ProductsDetail extends AbstractComponent {
 
     public WebElement getBrand() {
         return brand;
+    }
+
+    public String getWriteReviewTitleText()
+    {
+       return writeReviewTitle.getText();
+    }
+
+    public void addReview(String name, String email, String review) {
+        reviewNameBox.sendKeys(name);
+        reviewEmailBox.sendKeys(email);
+        reviewInputBox.sendKeys(review);
+        reviewSubmitBtn.click();
+    }
+
+    public String getSuccessAlertMsgeText()
+    {
+        waitForVisibilityOfElement(successAlertMsge);
+       return successAlertMsge.getText();
     }
 }
