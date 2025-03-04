@@ -73,4 +73,35 @@ public class CartPageTests extends BaseTest {
 
     }
 
+    @Test
+    public void verifyCartProdsAfterLogin() throws InterruptedException {
+        //Click on 'Products' button
+        Products products = homePage.goToAllProducts();
+        // Verify user is navigated to ALL PRODUCTS page successfully
+        Assert.assertEquals(products.getAllProductsText(),"All Products".toUpperCase());
+        //Enter product name in search input and click search button
+       String productName ="tshirt";
+        products.searchProd(productName);
+        //Verify 'SEARCHED PRODUCTS' is visible
+        Assert.assertEquals(products.getSearchProdText(),"SEARCHED PRODUCTS");
+        //Verify all the products related to search are visible
+        products.checkVisibilityOfRelatedProds(productName);
+        //Add those products to cart
+       List<String> addedProdList =products.addAllSearchedProdsToCart();
+        System.out.println(addedProdList);
+       // Click 'Cart' button and verify that products are visible in cart
+        CartPage cartPage = products.goToCartPage();
+        Assert.assertTrue(cartPage.verifyCartProdNames(addedProdList));
+        // Click 'Signup / Login' button and submit login details
+        LoginPage loginPage = cartPage.goToLoginPage();
+        loginPage.login("scott@gmail.com","scot@123");
+        //Again, go to Cart page
+        products.goToCartPage();
+        //Verify that those products are visible in cart after login as well
+        Assert.assertTrue(cartPage.verifyCartProdNames(addedProdList));
+
+
+
+    }
+
 }

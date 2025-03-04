@@ -18,7 +18,7 @@ public class Products extends AbstractComponent {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//div[@class='features_items']/h2")
+    @FindBy(css = ".features_items .title")
     WebElement allProductsText;
 
     @FindBy(css = ".features_items .col-sm-4")
@@ -42,10 +42,14 @@ public class Products extends AbstractComponent {
     @FindBy(css = ".btn-success")
     WebElement continueShoppingBtn;
 
+   By productOverlay = By.cssSelector(".product-overlay");
+
 
     By price = By.cssSelector(".single-products div h2");
 
     By searchedProdName = By.cssSelector(".productinfo  p");
+
+    By searchedProdNameOverlay = By.xpath("//div[@class='overlay-content']/p");
 
     By addToCartBtn = By.cssSelector(".product-overlay div a");
 
@@ -54,12 +58,17 @@ public class Products extends AbstractComponent {
     @FindBy(xpath = "//h2[contains(text(),'Brands')]")
     WebElement brandsTitle;
 
-    public WebElement getAllProductsText() {
-        return allProductsText;
+    public String getAllProductsText() {
+        return allProductsText.getText();
     }
 
     public List<WebElement> getProdList() {
         return prodList;
+    }
+
+    public List<WebElement> getSearchedProdList()
+    {
+        return searchedProdList;
     }
 
     public ProductsDetail viewFirstProd() {
@@ -169,6 +178,34 @@ public class Products extends AbstractComponent {
         return brandPage;
     }
 
+    public List<String> addAllSearchedProdsToCart() throws InterruptedException {
 
+        List<String> addedProdList =new ArrayList<String>();
+       for(WebElement prod:searchedProdList)
+       {
+            scrollToElement(prod);
+           addedProdList.add(prod.findElement(searchedProdName).getText());
+           Thread.sleep(1000);
+           mouseHover(driver,prod);
+           waitForVisibilityOfElement(prod.findElement(productOverlay));
+           waitForVisibilityOfElement(prod.findElement(addToCartBtn));
+           prod.findElement(addToCartBtn).click();
+           waitForVisibilityOfElement(continueShoppingBtn);
+           continueShoppingBtn.click();
+
+       }
+       return addedProdList;
     }
+
+
+    public ProductsDetail viewSelectedProd(String prodName) {
+
+        WebElement selectedProd =  getProduct(prodName);
+        scrollToElement(selectedProd);
+        waitForVisibilityOfElement(selectedProd);
+       selectedProd.findElement(viewProductBtn).click();
+        ProductsDetail productsDetail = new ProductsDetail(driver);
+        return productsDetail;
+    }
+}
 

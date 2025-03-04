@@ -166,7 +166,12 @@ WebDriver driver;
         Actions action = new Actions(driver);
         action.moveToElement(element).build().perform();
 
+    }
 
+    public void scrollToElement(WebElement element)
+    {
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("arguments[0].scrollIntoView();",element);
     }
 
 }
