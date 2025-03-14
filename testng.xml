@@ -43,7 +43,7 @@
 
     <test verbose="2" preserve-order="true" name="Verify Pages">
         <classes>
-            <class name="VerifyProductAndDetailPages"/>
+            <class name="VerifyPages"/>
         </classes>
     </test>
 

@@ -57,7 +57,17 @@ WebDriver driver;
     @FindBy(css = "li:last-child a")
     WebElement welcomeMsge;
 
+    @FindBy(css = ".footer-widget")
+    WebElement footerSection;
 
+    @FindBy(id = "scrollUp")
+    WebElement scrollUpArrow;
+
+    @FindBy(id = "header")
+    WebElement headerSection;
+
+    @FindBy(css = ".text-center a u")
+    WebElement viewCartLink;
 
     public LoginPage goToLoginPage()
     {
@@ -113,6 +123,7 @@ WebDriver driver;
     public void userLogout()
     {
         logoutBtn.click();
+
     }
 
     public CartPage goToCartPage()
@@ -174,4 +185,49 @@ WebDriver driver;
         jse.executeScript("arguments[0].scrollIntoView();",element);
     }
 
+    public WebElement getFooterElement()
+    {
+        return footerSection;
+    }
+
+    public void clickUpArrow()
+    {
+        scrollUpArrow.click();
+    }
+
+    public WebElement getHeaderSection()
+    {
+        return headerSection;
+    }
+
+//    public void buttonClick(WebDriver driver, WebElement targetElement)
+//    {
+//        Actions action = new Actions(driver);
+//        action.moveToElement(targetElement).click().build().perform();
+//    }
+
+    public void waitForPresenceOfElement(By locator){
+        WebDriverWait wait = new WebDriverWait( driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
+    public void disablePageTransition(WebElement button){
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("arguments[0].addEventListener('click', function(event) { event.preventDefault(); });", button);
+    }
+
+    public void clickBtnWithJsExecutor(WebElement button){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", button);
+    }
+
+    public void waitForElementToDissapear(WebDriver driver,WebElement element){
+        WebDriverWait wait = new WebDriverWait( driver,Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.invisibilityOf(element));
+    }
+
+    public CartPage clickViewCartLink(){
+        viewCartLink.click();
+        return  new CartPage(driver);
+    }
 }

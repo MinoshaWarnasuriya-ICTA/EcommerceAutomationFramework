@@ -92,14 +92,15 @@ public class Products extends AbstractComponent {
 
     }
 
-    public List<String> addProdsToCartFromList(List prodIndexList) {
+    public List<String> addProdsToCartFromList(int[] prodIndex) {
 
-        scrollWindow(500);
+
         List<String> addedProds = new ArrayList<String>();
-        for (int i = 0; i < prodIndexList.size(); i++) {
+        for (int i = 0; i < prodIndex.length; i++) {
             selectedItem = getProdList().get(i);
-
+            scrollToElement(selectedItem);
             mouseHover(driver, selectedItem);
+           // waitForVisibilityOfElement(selectedItem.findElement(addToCartBtn));
             selectedItem.findElement(addToCartBtn).click();
             waitForVisibilityOfElement(continueShoppingBtn);
             continueShoppingBtn.click();
@@ -130,33 +131,32 @@ public class Products extends AbstractComponent {
 
     public ProductsDetail goToProdDetailPage(String productName) {
         WebElement selectedProd = getProduct(productName);
-        scrollWindow(500);
+        scrollToElement(selectedProd);
         selectedProd.findElement(viewProductBtn).click();
         ProductsDetail productsDetail = new ProductsDetail(driver);
         return productsDetail;
     }
 
-    public void addProdsToCartByName(String product)
+    public void addProdToCartByName(String product)
     {
-            List<WebElement> choosenProds = getProdList().stream().filter(prod -> prod.findElement(searchedProdName).getText().equals(product)).collect(Collectors.toList());
-            for (int i = 0; i < choosenProds.size(); i++) {
-                scrollWindow(1000);
-                waitForVisibilityOfElement(choosenProds.get(i));
-                mouseHover(driver, choosenProds.get(i));
-                choosenProds.get(i).findElement(addToCartBtn).click();
+            WebElement choosenProd = getProdList().stream().filter(prod -> prod.findElement(searchedProdName).getText().equals(product)).findFirst().orElse(null);
+                scrollToElement(choosenProd);
+                mouseHover(driver, choosenProd);
+                waitForVisibilityOfElement(choosenProd.findElement(addToCartBtn));
+                choosenProd.findElement(addToCartBtn).click();
                 waitForVisibilityOfElement(continueShoppingBtn);
                 continueShoppingBtn.click();
-            }
+            
     }
 
 
-    public void addProdListToCart(String[] productList) {
+    public void addProdListToCart(String[] prods) {
 
-        List<String> productsList = Arrays.asList(productList);
-        scrollWindow(850);
+        List<String> productsList = Arrays.asList(prods);
                 for(int i=0;i<productsList.size();i++) {
                     int finalI = i;
                     WebElement choosenProd = prodList.stream().filter(p -> p.findElement(searchedProdName).getText().contains(productsList.get(finalI))).findFirst().orElse(null);
+                    scrollToElement(choosenProd);
                     mouseHover(driver, choosenProd);
                     waitForVisibilityOfElement(choosenProd.findElement(addToCartBtn));
                     choosenProd.findElement(addToCartBtn).click();

@@ -69,28 +69,34 @@ public class ProductsDetail extends AbstractComponent {
     }
 
 
-    public WebElement getProdName() {
-        return prodName;
+    public String getProdName() {
+        String product = prodName.getText();
+        return product;
     }
 
-    public WebElement getProdCategory() {
-        return prodCategory;
+    public String  getProdCategory() {
+       String category = prodCategory.getText().split(": ")[1];
+       return category;
     }
 
-    public WebElement getProdPrice() {
-        return price;
+    public String getProdPrice() {
+        String priceText = price.getText().split(" ")[1];
+        return priceText;
     }
 
-    public WebElement getAvailability() {
-        return availability;
+    public String getAvailability() {
+       String availabilityType = availability.getText().split(": ")[1];
+       return availabilityType;
     }
 
-    public WebElement getCondition() {
-        return condition;
+    public String getCondition() {
+      String conditionTxt = condition.getText().split(": ")[1];
+      return conditionTxt;
     }
 
-    public WebElement getBrand() {
-        return brand;
+    public String getBrand() {
+       String brandName =  brand.getText().split(": ")[1];
+       return brandName;
     }
 
     public String getWriteReviewTitleText()

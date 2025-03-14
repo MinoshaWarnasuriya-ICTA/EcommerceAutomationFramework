@@ -14,10 +14,9 @@ public class CartPage extends AbstractComponent {
         super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this);
-
     }
 
-    @FindBy(css = ".cart_description h4 a")
+    @FindBy(xpath = "//tbody/tr/td[2]/h4/a")
     List<WebElement> cartPageProdNames;
 
     @FindBy(xpath = "//td[@class='cart_price']/p")
@@ -38,7 +37,7 @@ public class CartPage extends AbstractComponent {
     @FindBy(xpath = "//*[@class='modal-content']/div[2]/p[2]/a")
     WebElement loginRegisterLink;
 
-   By removeBtn = By.cssSelector(".cart_quantity_delete");
+   By removeBtn = By.xpath("//tbody/tr/td[6]/a");
 
 
     @FindBy(xpath = "//tbody/tr")
@@ -128,24 +127,18 @@ public class CartPage extends AbstractComponent {
         return checkoutPage;
     }
 
-    public void removeProds(String[] prodsToRemove)
-    {
-        scrollWindow(300);
-        for(int j=0;j<prodsToRemove.length;j++)
-        {
-            int finalJ = j;
-          WebElement trashProd =  cartProdsList.stream().filter(o->o.findElement(cartProdName).getText().equalsIgnoreCase(prodsToRemove[finalJ])).findFirst().orElse(null);
+    public void removeProds(String prodToRemove){
+
+         WebElement trashProd =  cartProdsList.stream().filter(o->o.findElement(cartProdName).getText().equalsIgnoreCase(prodToRemove)).findFirst().orElse(null);
+          scrollToElement(trashProd);
           trashProd.findElement(removeBtn).click();
-        }
+          waitForElementToDissapear(driver,trashProd);
 
     }
 
-    public boolean verifyRemovalOfProd(String[] prodsToRemove) {
+    public boolean verifyRemovalOfProd(String prodsToRemove) {
         boolean flag = false;
-        for (int g = 0; g < prodsToRemove.length; g++) {
-            int finalG = g;
-             flag = cartProdsList.stream().noneMatch(h -> h.findElement(cartProdName).getText().equalsIgnoreCase(prodsToRemove[finalG]));
-        }
+             flag = cartProdsList.stream().noneMatch(h -> h.findElement(cartProdName).getText().equalsIgnoreCase(prodsToRemove));
         return flag;
     }
 

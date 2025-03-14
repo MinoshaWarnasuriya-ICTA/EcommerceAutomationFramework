@@ -19,12 +19,12 @@ public class RegisterUserFrmwrk extends BaseTest {
         Assert.assertTrue(loginPage.getSignUpTxt().isDisplayed());
         //Enter name and email address
         loginPage.enterName(userName);
-        loginPage.enterSignupEmail("scott@gmail.com");
+        loginPage.enterSignupEmail("scott@yahoo.com");
         //go to sign up page
         SignUpPage signUpPage = loginPage.clickSignUp();
 
         //Verify that 'ENTER ACCOUNT INFORMATION' is visible
-        Assert.assertTrue(signUpPage.getAccInfoTxt().isDisplayed());
+        Assert.assertEquals(signUpPage.getAccInfoTxt().getText(),"ENTER ACCOUNT INFORMATION");
         //Fill details: Title, Name, Email, Password, Date of birth
         signUpPage.selectTitle("Mr");
         signUpPage.clearAndEnterName(userName);
@@ -55,8 +55,7 @@ public class RegisterUserFrmwrk extends BaseTest {
 
         //Verify that 'Logged in as username' is visible
         String welcomMsge = "Logged in as ";
-        String name = homePage.getVisibleName();
-        Assert.assertEquals(homePage.getWelcomeTxt(), welcomMsge + name);
+        Assert.assertEquals(homePage.getWelcomeTxt(), welcomMsge + firstName);
 
 
 //        //Click 'Delete Account' button

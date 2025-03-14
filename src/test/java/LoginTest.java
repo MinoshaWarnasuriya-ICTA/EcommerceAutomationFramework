@@ -13,14 +13,14 @@ import java.io.*;
 import java.util.*;
 
 public class LoginTest extends BaseTest {
-    @Test(dataProvider = "getLoginData")
-    public void validLogin(HashMap<String,String> data) {
-        String name = data.get("name");
+    @Test
+    public void validLogin(String email,String password) {
+        String name = "Scott";
         LoginPage loginPage = homePage.goToLoginPage();
         //Verify 'Login to your account' is visible
         Assert.assertEquals(loginPage.getLoginToAccMsgeTxt(), "Login to your account");
         //Enter correct email address and password
-        loginPage.login(data.get("email"), data.get("password"));
+        loginPage.login(email, password);
         //Verify that 'Logged in as username' is visible
         String actualLoggedInUserText = loginPage.getLoggedInUserTxt();
         String expectedTxt = "Logged in as " + name;
@@ -41,9 +41,9 @@ public class LoginTest extends BaseTest {
         Assert.assertEquals(errorMsge, "Your email or password is incorrect!");
     }
 
-    @Test(dependsOnMethods = {"validLogin"})
+    @Test
     public void logout() {
-      //  validLogin();
+      validLogin("scott@gmail.com","scot@123");
         //Click 'Logout' button
         homePage.userLogout();
         //Verify that user is navigated to login page

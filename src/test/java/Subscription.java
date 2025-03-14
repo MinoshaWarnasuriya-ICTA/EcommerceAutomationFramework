@@ -6,13 +6,13 @@ import pageObjects.*;
 
 public class Subscription extends BaseTest {
 
-    String expectedTxt = "Subscription";
+
     @Test
     public void verifySubscriptionInHomePage() {
         //Scroll down to footer
         homePage.scrollWindow(8000);
         //Verify text 'SUBSCRIPTION'
-        Assert.assertEquals(homePage.getSubscriptionTxt(),expectedTxt.toUpperCase());
+        Assert.assertEquals(homePage.getSubscriptionTxt(),"Subscription".toUpperCase());
         //Enter email address in input and click arrow button
         homePage.subscribe("devon@gmail.com");
         //Verify success message 'You have been successfully subscribed!' is visible
@@ -26,7 +26,7 @@ public class Subscription extends BaseTest {
         //Scroll down to footer
      homePage.scrollWindow(8000);
         //Verify text 'SUBSCRIPTION'
-        Assert.assertEquals(homePage.getSubscriptionTxt(),expectedTxt.toUpperCase());
+        Assert.assertEquals(homePage.getSubscriptionTxt(),"Subscription".toUpperCase());
         //Enter email address in input and click arrow button
         homePage.subscribe("devon@gmail.com");
         //Verify success message 'You have been successfully subscribed!' is visible

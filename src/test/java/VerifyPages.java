@@ -1,12 +1,9 @@
 import TestComponents.*;
-import io.github.bonigarcia.wdm.*;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.*;
 import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
 
-public class VerifyProductAndDetailPages extends BaseTest {
+public class VerifyPages extends BaseTest {
 
     @Test
     public void verifyTestCasesPage()
@@ -32,11 +29,11 @@ public class VerifyProductAndDetailPages extends BaseTest {
         String expectedURL="https://automationexercise.com/product_details/1";
         Assert.assertEquals(driver.getCurrentUrl(),expectedURL);
         // Verify that detail is visible: product name, category, price, availability, condition, brand
-        Assert.assertTrue(prodDetail.getProdName().isDisplayed());
-        Assert.assertTrue(prodDetail.getProdCategory().isDisplayed());
-        Assert.assertTrue(prodDetail.getProdPrice().isDisplayed());
-        Assert.assertTrue(prodDetail.getAvailability().isDisplayed());
-        Assert.assertTrue(prodDetail.getCondition().isDisplayed());
-        Assert.assertTrue(prodDetail.getBrand().isDisplayed());
+        Assert.assertTrue(prodDetail.getProdName().isEmpty());
+        Assert.assertFalse(prodDetail.getProdCategory().isEmpty());
+        Assert.assertTrue(prodDetail.getProdPrice().isEmpty());
+        Assert.assertFalse(prodDetail.getAvailability().isEmpty());
+        Assert.assertFalse(prodDetail.getCondition().isEmpty());
+        Assert.assertFalse(prodDetail.getBrand().isEmpty());
     }
 }

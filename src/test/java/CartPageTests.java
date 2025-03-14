@@ -15,9 +15,9 @@ public class CartPageTests extends BaseTest {
         //Go to products page
         Products products = homePage.goToAllProducts();
         //Hover over first and second products,click 'Add to cart' and Click 'Continue Shopping' button
-        int[] prodIndex = {0, 1};
-        List prodIndexList = Arrays.asList(prodIndex);//convert prod indexes to an array list
-        List<String> addedProds = products.addProdsToCartFromList(prodIndexList);
+        int[] prodIndex = {0,1};
+        //List prodIndexList = Arrays.asList(prodIndex);//convert prod indexes to an array list
+        List<String> addedProds = products.addProdsToCartFromList(prodIndex);
         //get prices of added products to a list
         List<String> priceList = products.getProdPrice(prodIndex);
         // Click 'View Cart' button
@@ -66,10 +66,10 @@ public class CartPageTests extends BaseTest {
         //Verify that cart page is displayed
         Assert.assertEquals(cartPage.getCartPageDisplayText(), "Shopping Cart");
         //Click 'X' button corresponding to particular product
-        String[] prodsToRemove ={"Winter Top"};
-        cartPage.removeProds(prodsToRemove);
+        String prodToRemove ="Winter Top";
+        cartPage.removeProds(prodToRemove);
         //Verify that product is removed from the cart
-        Assert.assertTrue(cartPage.verifyRemovalOfProd(prodsToRemove));
+        Assert.assertTrue(cartPage.verifyRemovalOfProd(prodToRemove));
 
     }
 
@@ -80,12 +80,12 @@ public class CartPageTests extends BaseTest {
         // Verify user is navigated to ALL PRODUCTS page successfully
         Assert.assertEquals(products.getAllProductsText(),"All Products".toUpperCase());
         //Enter product name in search input and click search button
-       String productName ="tshirt";
+       String productName ="shirt";
         products.searchProd(productName);
         //Verify 'SEARCHED PRODUCTS' is visible
         Assert.assertEquals(products.getSearchProdText(),"SEARCHED PRODUCTS");
         //Verify all the products related to search are visible
-        products.checkVisibilityOfRelatedProds(productName);
+        Assert.assertTrue(products.checkVisibilityOfRelatedProds(productName));
         //Add those products to cart
        List<String> addedProdList =products.addAllSearchedProdsToCart();
         System.out.println(addedProdList);
@@ -94,14 +94,29 @@ public class CartPageTests extends BaseTest {
         Assert.assertTrue(cartPage.verifyCartProdNames(addedProdList));
         // Click 'Signup / Login' button and submit login details
         LoginPage loginPage = cartPage.goToLoginPage();
-        loginPage.login("scott@gmail.com","scot@123");
+        loginPage.login("rajithaw@yahoo.com","rajitha@123");
         //Again, go to Cart page
         products.goToCartPage();
         //Verify that those products are visible in cart after login as well
         Assert.assertTrue(cartPage.verifyCartProdNames(addedProdList));
 
+    }
+
+    @Test
+    public void addToCartFromRecommendedItems() throws InterruptedException {
+        //Scroll to bottom of page
+        homePage.scrollToRecommendedItems();
+        //Verify 'RECOMMENDED ITEMS' are visible
+        Assert.assertEquals(homePage.getRecommendedItemsText(),"recommended items".toUpperCase());
+        String recommendedProduct = "Men Tshirt";
+        Thread.sleep(7000);
+        //Click on 'Add To Cart' on Recommended product
+        homePage.addRecommendedProdToCart(recommendedProduct);
+        // view cart
+        CartPage cartPage =homePage.clickViewCartLink();
+        //Verify that product is displayed in cart page
+        Assert.assertTrue(cartPage.verifyCartProdByName(recommendedProduct));
 
 
     }
-
 }

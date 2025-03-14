@@ -31,8 +31,7 @@ public class PaymentPage extends AbstractComponent {
     @FindBy(id = "submit")
     WebElement placeOrderBtn;
 
-    @FindBy(css = "#success_message div")
-    WebElement successMsge;
+    By successMsge = By.cssSelector(".alert-success");
 
     public void fillPaymentDetails(String name_on_card, String card_no, String cvc, String expire_month, String expiry_year) {
         scrollWindow(250);
@@ -44,16 +43,24 @@ public class PaymentPage extends AbstractComponent {
 
     }
 
-    public PaymentDonePage clickPlaceOrderBtn() {
+    public String getSuccessMsge() throws InterruptedException {
+
+        disablePageTransition(placeOrderBtn);
         placeOrderBtn.click();
-        PaymentDonePage paymentDonePage = new PaymentDonePage(driver);
-        return paymentDonePage;
+        Thread.sleep(5000);
+        waitForPresenceOfElement(successMsge);
+        String toastMsge =  driver.findElement(successMsge).getText();
+        return toastMsge;
+
     }
 
-    public String getSuccessMsge() {
+    public PaymentDonePage clickPlaceOrderBtnForPageTrans() {
+        clickBtnWithJsExecutor(placeOrderBtn);
+        PaymentDonePage paymentDonePage = new PaymentDonePage(driver);
+        return paymentDonePage;
 
-        waitForVisibilityOfElement(successMsge);
-      return  successMsge.getText();
+
+
 
     }
 
